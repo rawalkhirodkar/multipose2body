@@ -11,14 +11,6 @@ fi
 find ./* -size +100M | sed 's|^./||'| cat >> .gitignore
 
 
-echo "hrnet/Outputs" >> .gitignore
-echo "hrnet/models" >> .gitignore
-echo "hrnet/data" >> .gitignore
-echo "hrnet/cache" >> .gitignore
-echo "syncrowd/Outputs" >> .gitignore
-echo "syncrowd/data" >> .gitignore
-echo "detectron2/models" >> .gitignore
-
 echo "__pycache__/" >> .gitignore
 echo ".DS_Store" >> .gitignore
 echo "._*" >> .gitignore
@@ -27,11 +19,11 @@ echo "*.ipynb_checkpoints" >> .gitignore
 echo "*.so" >> .gitignore
 
 
-echo "posefix/data" >> .gitignore
-echo "posefix/output" >> .gitignore
-
 #uncomment if you want to use lfs git
 # find ./* -size +100M | cat > .gitattributes
+
+echo "multipose2body/openpose_pytorch/model" >> .gitignore
+
 
 
 #push using the git command

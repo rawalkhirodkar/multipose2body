@@ -13,3 +13,14 @@ __pycache__/
 *.so
 posefix/data
 posefix/output
+openpose_pytorch/model/body_pose.caffemodel
+openpose_pytorch/model/hand_pose_model.pth
+openpose_pytorch/model/hand_pose.caffemodel
+openpose_pytorch/model/body_pose_model.pth
+__pycache__/
+.DS_Store
+._*
+*.pyc
+*.ipynb_checkpoints
+*.so
+multipose2body/openpose_pytorch/model
