@@ -1,0 +1,15 @@
+hrnet/Outputs
+hrnet/models
+hrnet/data
+hrnet/cache
+syncrowd/Outputs
+syncrowd/data
+detectron2/models
+__pycache__/
+.DS_Store
+._*
+*.pyc
+*.ipynb_checkpoints
+*.so
+posefix/data
+posefix/output
