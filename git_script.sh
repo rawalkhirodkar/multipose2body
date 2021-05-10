@@ -23,7 +23,7 @@ echo "*.so" >> .gitignore
 # find ./* -size +100M | cat > .gitattributes
 
 echo "multipose2body/openpose_pytorch/model" >> .gitignore
-
+echo "multipose2body/openpose/output" >> .gitignore
 
 
 #push using the git command
