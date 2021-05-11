@@ -16,11 +16,14 @@ output_dir = args.output_dir
 
 person_left_rgb_dir = os.path.join(output_dir, 'person_left', 'rgb')
 person_left_pose_dir = os.path.join(output_dir, 'person_left', 'pose')
+person_left_json_dir = os.path.join(output_dir, 'person_left', 'bb_json')
 
 person_right_rgb_dir = os.path.join(output_dir, 'person_right', 'rgb')
 person_right_pose_dir = os.path.join(output_dir, 'person_right', 'pose')
+person_right_json_dir = os.path.join(output_dir, 'person_right', 'bb_json')
 
-make_dir_list = [person_left_rgb_dir, person_left_pose_dir, person_right_rgb_dir, person_right_pose_dir]
+make_dir_list = [person_left_rgb_dir, person_left_pose_dir, person_left_json_dir, \
+				person_right_rgb_dir, person_right_pose_dir, person_right_json_dir]
 
 for make_dir in make_dir_list:
   if not os.path.exists(make_dir):
@@ -93,6 +96,11 @@ for image_name in image_names:
   rgb_image_left = crop(bb_left, np.copy(rgb_image))
   cv2.imwrite(os.path.join(person_left_rgb_dir, image_name), rgb_image_left)
 
+  bb = bb_left
+  bb_dict = {'x1': bb[0], 'y1': bb[1], 'x2': bb[2], 'y2': bb[3]}
+  with open(os.path.join(person_left_json_dir, '{}.json'.format(image_id)), 'w') as f:
+    json.dump(bb_dict, f)
+
   # --------------save right------------------
   bb_right = get_bb(person_right, shape=rgb_image.shape)
   pose_image_right = crop(bb_right, np.copy(pose_image))
@@ -101,4 +109,8 @@ for image_name in image_names:
   rgb_image_right = crop(bb_right, np.copy(rgb_image))
   cv2.imwrite(os.path.join(person_right_rgb_dir, image_name), rgb_image_right)
 
+  bb = bb_right
+  bb_dict = {'x1': bb[0], 'y1': bb[1], 'x2': bb[2], 'y2': bb[3]}
+  with open(os.path.join(person_right_json_dir, '{}.json'.format(image_id)), 'w') as f:
+    json.dump(bb_dict, f)
 
