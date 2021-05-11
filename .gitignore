@@ -8,3 +8,16 @@ __pycache__/
 *.so
 multipose2body/openpose_pytorch/model
 multipose2body/openpose/output
+openpose/output/pose_images.tar.gz
+openpose_pytorch/model/hand_pose_model.pth
+openpose_pytorch/model/body_pose_model.pth
+__pycache__/
+.DS_Store
+._*
+*.pyc
+*.ipynb_checkpoints
+*.so
+multipose2body/openpose_pytorch/model
+multipose2body/openpose/output
+multipose2body/pix2pixHD/datasets
+multipose2body/pix2pixHD/checkpoints

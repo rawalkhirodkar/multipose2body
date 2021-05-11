@@ -26,6 +26,10 @@ echo "multipose2body/openpose_pytorch/model" >> .gitignore
 echo "multipose2body/openpose/output" >> .gitignore
 
 
+echo "multipose2body/pix2pixHD/datasets" >> .gitignore
+echo "multipose2body/pix2pixHD/checkpoints" >> .gitignore
+
+
 #push using the git command
 git add -A
 git commit -m "$1"
