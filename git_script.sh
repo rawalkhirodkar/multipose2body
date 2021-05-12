@@ -28,7 +28,7 @@ echo "openpose/output" >> .gitignore
 
 echo "pix2pixHD/datasets" >> .gitignore
 echo "pix2pixHD/checkpoints" >> .gitignore
-
+echo "pix2pixHD/results" >> .gitignore
 
 #push using the git command
 git add -A
