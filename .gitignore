@@ -9,7 +9,7 @@ __pycache__/
 *.pyc
 *.ipynb_checkpoints
 *.so
-./openpose_pytorch/model
-./openpose/output
-./pix2pixHD/datasets
-./pix2pixHD/checkpoints
+openpose_pytorch/model
+openpose/output
+pix2pixHD/datasets
+pix2pixHD/checkpoints

@@ -22,12 +22,12 @@ echo "*.so" >> .gitignore
 #uncomment if you want to use lfs git
 # find ./* -size +100M | cat > .gitattributes
 
-echo "./openpose_pytorch/model" >> .gitignore
-echo "./openpose/output" >> .gitignore
+echo "openpose_pytorch/model" >> .gitignore
+echo "openpose/output" >> .gitignore
 
 
-echo "./pix2pixHD/datasets" >> .gitignore
-echo "./pix2pixHD/checkpoints" >> .gitignore
+echo "pix2pixHD/datasets" >> .gitignore
+echo "pix2pixHD/checkpoints" >> .gitignore
 
 
 #push using the git command
