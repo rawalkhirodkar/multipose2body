@@ -7,6 +7,12 @@ def create_model(opt):
             model = Pix2PixHDModel()
         else:
             model = InferenceModel()
+    elif opt.model == 'globalpix2pixHD':
+        from .globalpix2pixHD_model import GlobalPix2PixHDModel, GlobalInferenceModel
+        if opt.isTrain:
+            model = GlobalPix2PixHDModel()
+        else:
+            model = GlobalInferenceModel()
     else:
     	from .ui_model import UIModel
     	model = UIModel()
