@@ -74,3 +74,69 @@ class AlignedDataset(BaseDataset):
 
     def name(self):
         return 'AlignedDataset'
+
+# -------------------------------------------
+class AlignedGlobalDataset(BaseDataset):
+    def initialize(self, opt):
+        self.opt = opt
+        self.root = opt.dataroot    
+
+        input_dir = os.path.join(opt.dataroot, 'input')
+        output_dir = os.path.join(opt.dataroot, 'output')
+
+        ### make inputs
+        self.person1_dir = os.path.join(input_dir, 'person1')
+        self.person2_dir = os.path.join(input_dir, 'person2')
+        self.pose_dir = os.path.join(input_dir, 'pose_images')
+
+        ### make outputs
+        self.rgb_dir = output_dir
+
+        self.person1_paths = sorted(make_dataset(self.person1_dir))
+        self.person2_paths = sorted(make_dataset(self.person2_dir))
+        self.pose_paths = sorted(make_dataset(self.pose_dir))
+        self.rgb_paths = sorted(make_dataset(self.rgb_dir))
+
+        self.dataset_size = len(self.person1_paths) 
+        return
+      
+    def __getitem__(self, index): 
+
+        ## make inputs
+        person1_path = self.person1_paths[index]
+        person1_image = Image.open(person1_path) ## not it is an rgb image
+
+        person2_path = self.person2_paths[index]
+        person2_image = Image.open(person2_path) ## not it is an rgb image
+
+        pose_path = self.pose_paths[index]
+        pose_image = Image.open(pose_path) ## not it is an rgb image
+        
+        ### make transform
+        params = get_params(self.opt, person1_image.size)
+        transform_input = get_transform(self.opt, params)
+
+        person1_tensor = transform_input(person1_image.convert('RGB'))
+        person2_tensor = transform_input(person2_image.convert('RGB'))
+        pose_tensor = transform_input(pose_image.convert('RGB'))
+        
+        output_tensor = inst_tensor = feat_tensor = 0
+
+        ### make outputs
+        if self.opt.isTrain:
+            rgb_path = self.rgb_paths[index]   
+            rgb = Image.open(rgb_path).convert('RGB')
+            transform_output = get_transform(self.opt, params)      
+            output_tensor = transform_output(rgb)                          
+
+        import pdb; pdb.set_trace()
+        input_dict = {'label': A_tensor, 'inst': inst_tensor, 'image': output_tensor, 
+                      'feat': feat_tensor, 'path': pose_path}
+
+        return input_dict
+
+    def __len__(self):
+        return len(self.person1_paths) // self.opt.batchSize * self.opt.batchSize
+
+    def name(self):
+        return 'AlignedGlobalDataset'
