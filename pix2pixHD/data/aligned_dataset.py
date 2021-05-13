@@ -2,6 +2,7 @@ import os.path
 from data.base_dataset import BaseDataset, get_params, get_transform, normalize
 from data.image_folder import make_dataset
 from PIL import Image
+import torch
 
 class AlignedDataset(BaseDataset):
     def initialize(self, opt):
@@ -129,8 +130,8 @@ class AlignedGlobalDataset(BaseDataset):
             transform_output = get_transform(self.opt, params)      
             output_tensor = transform_output(rgb)                          
 
-        import pdb; pdb.set_trace()
-        input_dict = {'label': A_tensor, 'inst': inst_tensor, 'image': output_tensor, 
+        input_tensor = torch.cat([pose_tensor, person1_tensor, person2_tensor], dim=0)
+        input_dict = {'label': input_tensor, 'inst': inst_tensor, 'image': output_tensor, 
                       'feat': feat_tensor, 'path': pose_path}
 
         return input_dict
