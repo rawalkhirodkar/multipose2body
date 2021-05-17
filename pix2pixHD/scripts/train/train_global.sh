@@ -20,11 +20,23 @@ cd ../..
 # 				--input_nc 9
 
 
-CUDA_VISIBLE_DEVICES=2,1,0 python -m torch.distributed.launch train_global.py --dataroot datasets/video1_global \
+# CUDA_VISIBLE_DEVICES=2,1,0 python -m torch.distributed.launch train_global.py --dataroot datasets/video1_global \
+# 				--label_nc 0 \
+# 				--resize_or_crop none \
+# 				--no_instance \
+# 				--name video1_global \
+# 				--model globalpix2pixHD \
+# 				--input_nc 9 \
+# 				--checkpoints_dir './checkpoints/global'
+
+
+
+CUDA_VISIBLE_DEVICES=2,1,0 python -m torch.distributed.launch train_global.py --dataroot 'datasets/video2_global_train' \
 				--label_nc 0 \
 				--resize_or_crop none \
 				--no_instance \
-				--name video1_global \
+				--name video2_global \
 				--model globalpix2pixHD \
 				--input_nc 9 \
-				--checkpoints_dir './checkpoints/global'
+				--checkpoints_dir './checkpoints/global_video2' \
+				--batchSize 1 \
