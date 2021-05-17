@@ -31,7 +31,7 @@ cd ../..
 
 
 
-CUDA_VISIBLE_DEVICES=2,1,0 python -m torch.distributed.launch train_global.py --dataroot 'datasets/video2_global_train' \
+CUDA_VISIBLE_DEVICES=2,1,3 python -m torch.distributed.launch train_global.py --dataroot 'datasets/video2_global_train' \
 				--label_nc 0 \
 				--resize_or_crop none \
 				--no_instance \
@@ -39,4 +39,5 @@ CUDA_VISIBLE_DEVICES=2,1,0 python -m torch.distributed.launch train_global.py --
 				--model globalpix2pixHD \
 				--input_nc 9 \
 				--checkpoints_dir './checkpoints/global_video2' \
-				--batchSize 1 \
+				--batchSize 3 \
+				--gpu_ids 0,1,2 \
