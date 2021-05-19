@@ -3,6 +3,7 @@ from data.base_dataset import BaseDataset, get_params, get_transform, normalize
 from data.image_folder import make_dataset
 from PIL import Image
 import torch
+import os
 
 class AlignedDataset(BaseDataset):
     def initialize(self, opt):
@@ -99,20 +100,32 @@ class AlignedGlobalDataset(BaseDataset):
         self.rgb_paths = sorted(make_dataset(self.rgb_dir))
 
         self.dataset_size = len(self.person1_paths) 
+
+        ## original size
+        self.original_size = Image.open(self.person1_paths[0]).size
+        self.target_size = (self.original_size[0]/2, self.original_size[1]/2)
+
         return
       
     def __getitem__(self, index): 
-
         ## make inputs
         person1_path = self.person1_paths[index]
         person1_image = Image.open(person1_path) ## not it is an rgb image
+        person1_image.thumbnail(self.target_size, Image.ANTIALIAS)
 
-        person2_path = self.person2_paths[index]
+        image_name = person1_path.split('/')[-1]
+
+        # person2_path = self.person2_paths[index]
+        person2_path = os.path.join(self.person2_dir, image_name)
         person2_image = Image.open(person2_path) ## not it is an rgb image
+        person2_image.thumbnail(self.target_size, Image.ANTIALIAS)
 
-        pose_path = self.pose_paths[index]
+        # pose_path = self.pose_paths[index]
+        pose_path = os.path.join(self.pose_dir, image_name)
         pose_image = Image.open(pose_path) ## not it is an rgb image
-        
+        pose_image.thumbnail(self.target_size, Image.ANTIALIAS)
+
+
         ### make transform
         params = get_params(self.opt, person1_image.size)
         transform_input = get_transform(self.opt, params)
@@ -125,8 +138,11 @@ class AlignedGlobalDataset(BaseDataset):
 
         ### make outputs
         if self.opt.isTrain:
-            rgb_path = self.rgb_paths[index]   
+            # rgb_path = self.rgb_paths[index]
+            rgb_path = os.path.join(self.rgb_dir, image_name)   
             rgb = Image.open(rgb_path).convert('RGB')
+            rgb.thumbnail(self.target_size, Image.ANTIALIAS)
+
             transform_output = get_transform(self.opt, params)      
             output_tensor = transform_output(rgb)                          
 
