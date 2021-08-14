@@ -47,3 +47,35 @@ cp -r ./pose_images /home/rawal/Desktop/multipose2body/openpose/output
 # cp -r ./pose_jsons /home/rawal/Desktop/multipose2body/openpose/output
 # cp -r ./pose_images /home/rawal/Desktop/multipose2body/openpose/output
 
+####-----------------------------------------------------------------
+####-----------------------------------------------------------------
+####-----------------------------------------------------------------
+cd /openpose
+
+rm -rf ./pose_jsons
+rm -rf ./pose_images
+rm -rf /home/ANT.AMAZON.COM/khirawal/Desktop/multipose2body/openpose/output
+
+
+# ## for video
+# ./build/examples/openpose/openpose.bin --video examples/media/video.avi\
+# 					--face --hand \
+# 					--write_json ./output_json \
+# 					--display 0 \
+# 					--write_images ./output_images \
+# 					--disable_blending
+
+VIDEO_ID=00000
+
+### for images
+./build/examples/openpose/openpose.bin --image_dir /home/ANT.AMAZON.COM/khirawal/Desktop/datasets/basketball/raw_frames/${VIDEO_ID}\
+					--write_json ./pose_jsons \
+					--display 0 \
+					--write_images ./pose_images \
+					--disable_blending
+
+mkdir /home/ANT.AMAZON.COM/khirawal/Desktop/multipose2body/openpose/output/${VIDEO_ID}
+
+cp -r ./pose_jsons /home/ANT.AMAZON.COM/khirawal/Desktop/multipose2body/openpose/output/${VIDEO_ID}
+cp -r ./pose_images /home/ANT.AMAZON.COM/khirawal/Desktop/multipose2body/openpose/output/${VIDEO_ID}
+
